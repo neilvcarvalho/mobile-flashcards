@@ -6,6 +6,15 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { NavigationContainer } from '@react-navigation/native'
 import Decks from './components/Decks'
 import AddDeck from './components/AddDeck'
+import Constants from 'expo-constants'
+
+function MyStatusBar ({ backgroundColor, ...props }) {
+  return (
+    <View style={{backgroundColor, height: Constants.statusBarHeight}}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  )
+}
 
 const Tab =
   Platform.OS === 'ios'
@@ -14,7 +23,9 @@ const Tab =
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <React.Fragment>
+      <MyStatusBar backgroundColor={'black'} style="light" />
+      <NavigationContainer>
         <Tab.Navigator
           screenOptions={({ route }) => ({
             tabBarIcon: ({ color, size }) => {
@@ -36,6 +47,7 @@ export default function App() {
           <Tab.Screen name="Add Deck" component={AddDeck} />
         </Tab.Navigator>
       </NavigationContainer>
+    </React.Fragment>
   );
 }
 
