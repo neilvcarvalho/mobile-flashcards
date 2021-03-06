@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { NavigationContainer } from '@react-navigation/native'
+import { Provider as PaperProvider } from 'react-native-paper'
 import Decks from './components/Decks'
 import AddDeck from './components/AddDeck'
 import Constants from 'expo-constants'
@@ -23,7 +24,7 @@ const Tab =
 
 export default function App() {
   return (
-    <React.Fragment>
+    <PaperProvider>
       <MyStatusBar backgroundColor={'black'} style="light" />
       <NavigationContainer>
         <Tab.Navigator
@@ -47,7 +48,7 @@ export default function App() {
           <Tab.Screen name="Add Deck" component={AddDeck} />
         </Tab.Navigator>
       </NavigationContainer>
-    </React.Fragment>
+    </PaperProvider>
   );
 }
 
