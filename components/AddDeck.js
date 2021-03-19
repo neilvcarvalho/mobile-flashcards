@@ -1,27 +1,25 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { KeyboardAvoidingView } from 'react-native'
 import { Button, TextInput, Title } from 'react-native-paper'
-class AddDeck extends Component {
-  state = {
-    title: ''
+
+function AddDeck ({ navigation }) {
+  const [title, setTitle] = useState('')
+
+  const addDeck = () => {
+    setTitle('')
+    // Save to database
+    navigation.navigate('Decks')
   }
 
-  addDeck = () => {
-    this.props.handleAddDeck(this.state.title)
-    this.props.navigation.navigate('Decks')
-  }
+  return (
+    <KeyboardAvoidingView>
+      <Title>What's the title of your new deck?</Title>
 
-  render () {
-    return (
-      <KeyboardAvoidingView>
-        <Title>What's the title of your new deck?</Title>
+      <TextInput label="Title" onChangeText={(title) => { setTitle(title) }} value={title} />
 
-        <TextInput label="Title" onChangeText={(title) => { this.setState(() => ({ title: title })) }} value={this.state.title} />
-
-        <Button icon="plus" mode="contained" onPress={() => this.addDeck() }>Add deck</Button>
-      </KeyboardAvoidingView>
-    )
-  }
+      <Button icon="plus" mode="contained" onPress={() => addDeck() }>Add deck</Button>
+    </KeyboardAvoidingView>
+  )
 }
 
 export default AddDeck
