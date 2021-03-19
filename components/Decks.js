@@ -1,28 +1,26 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-class Decks extends Component {
-  render () {
-    const { decks } = this.props
+function Decks (props) {
+  const { decks } = props
 
-    return (
-      <View style={styles.container}>
-        {Object.keys(decks).map((deckId) => {
-          const deck = decks[deckId]
+  return (
+    <View style={styles.container}>
+      {Object.keys(decks).map((deckId) => {
+        const deck = decks[deckId]
 
-          return (
-            <TouchableOpacity key={deck.title} style={styles.deck}>
-              <Text style={styles.deckTitle}>{deck.title}</Text>
-              <Text style={styles.deckDescription}>
-                {deck.questions.length} card{deck.questions.length != 1 ? 's' : ''}
-              </Text>
-            </TouchableOpacity>
-          )
-        })}
-      </View>
-    )
-  }
+        return (
+          <TouchableOpacity key={deck.title} style={styles.deck}>
+            <Text style={styles.deckTitle}>{deck.title}</Text>
+            <Text style={styles.deckDescription}>
+              {deck.questions.length} card{deck.questions.length != 1 ? 's' : ''}
+            </Text>
+          </TouchableOpacity>
+        )
+      })}
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
