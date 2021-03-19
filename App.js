@@ -1,5 +1,5 @@
+import React, { Component } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
 import { StyleSheet, View, Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
@@ -8,6 +8,7 @@ import { Provider as PaperProvider } from 'react-native-paper'
 import Decks from './components/Decks'
 import AddDeck from './components/AddDeck'
 import Constants from 'expo-constants'
+import { addDeck, getDecks } from './utils/store'
 
 function MyStatusBar ({ backgroundColor, ...props }) {
   return (
@@ -22,34 +23,63 @@ const Tab =
     ? createBottomTabNavigator()
     : createMaterialTopTabNavigator()
 
-export default function App() {
-  return (
-    <PaperProvider>
-      <MyStatusBar backgroundColor={'black'} style="light" />
-      <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ color, size }) => {
-              let icon
-              if (route.name === 'Decks') {
-                icon = (
-                  <FontAwesome name="plus-square" size={size} color={color} />
-                )
-              } else if (route.name === 'Add Deck') {
-                icon = (
-                  <Ionicons name="plus-square" size={size} color={color} />
-                )
-              }
-              return icon
-            },
-          })}
-        >
-          <Tab.Screen name="Decks" component={Decks} />
-          <Tab.Screen name="Add Deck" component={AddDeck} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
-  );
+class App extends Component {
+  state = {
+    decks: {}
+  }
+
+  componentDidMount () {
+    getDecks()
+      .then((decks) => {
+        this.setState(() => ({
+          decks: JSON.parse(decks || '{}')
+        }))
+      })
+  }
+
+  handleAddDeck (title) {
+    this.setState((prevState) => ({
+      decks: {
+        ...prevState.decks,
+        [title]: {
+          title,
+          questions: []
+        }
+      }
+    }))
+
+    addDeck(title)
+  }
+
+  render() {
+    return (
+      <PaperProvider>
+        <MyStatusBar backgroundColor={'black'} style="light" />
+        <NavigationContainer>
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ color, size }) => {
+                let icon
+                if (route.name === 'Decks') {
+                  icon = (
+                    <FontAwesome name="plus-square" size={size} color={color} />
+                  )
+                } else if (route.name === 'Add Deck') {
+                  icon = (
+                    <Ionicons name="plus-square" size={size} color={color} />
+                  )
+                }
+                return icon
+              },
+            })}
+          >
+            <Tab.Screen name="Decks" children={(navigation) => <Decks {...navigation} decks={this.state.decks} />} />
+            <Tab.Screen name="Add Deck" children={(navigation) => <AddDeck {...navigation} handleAddDeck={this.handleAddDeck.bind(this)} />} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -60,3 +90,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App
