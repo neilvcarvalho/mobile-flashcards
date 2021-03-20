@@ -1,4 +1,4 @@
-import { getDecks } from "../utils/store"
+import { getDecks, saveDeck } from "../utils/store"
 
 export const RECEIVE_DECKS = 'RECEIVE_DECKS'
 export const ADD_DECK = 'ADD_DECK'
@@ -12,14 +12,23 @@ export function handleInitialData () {
   }
 }
 
-export function receiveDecks (decks) {
+export function handleAddDeck (title) {
+  return (dispatch) => {
+    return saveDeck(title)
+      .then(() => {
+        dispatch(addDeck(title))
+      })
+  }
+}
+
+function receiveDecks (decks) {
   return {
     type: RECEIVE_DECKS,
     decks,
   }
 }
 
-export function addDeck (title) {
+function addDeck (title) {
   return {
     type: ADD_DECK,
     title

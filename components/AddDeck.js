@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { KeyboardAvoidingView } from 'react-native'
 import { Button, TextInput, Title } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
-import { addDeck } from '../actions'
+import { handleAddDeck } from '../actions'
 
 function AddDeck ({ navigation }) {
   const [title, setTitle] = useState('')
   const dispatch = useDispatch()
 
   const submit = () => {
-    dispatch(addDeck(title))
+    dispatch(handleAddDeck(title))
     setTitle('')
     navigation.navigate('Decks')
   }
