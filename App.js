@@ -1,27 +1,47 @@
 import React, { useEffect } from 'react'
-import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, View, Platform } from 'react-native'
+import { Platform } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { NavigationContainer } from '@react-navigation/native'
-import Decks from './components/Decks'
+import { createStackNavigator } from '@react-navigation/stack'
 import AddDeck from './components/AddDeck'
-import Constants from 'expo-constants'
+import CustomStatusbar from './components/CustomStatusbar'
+import Decks from './components/Decks'
 import { useDispatch } from 'react-redux'
 import { handleInitialData } from './actions'
-
-function MyStatusBar ({ backgroundColor, ...props }) {
-  return (
-    <View style={{backgroundColor, height: Constants.statusBarHeight}}>
-      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
-    </View>
-  )
-}
+import DeckView from './components/DeckView'
 
 const Tab =
   Platform.OS === 'ios'
     ? createBottomTabNavigator()
     : createMaterialTopTabNavigator()
+
+const Stack = createStackNavigator()
+
+const TabNavigator = function () {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color, size }) => {
+          let icon
+          if (route.name === 'Decks') {
+            icon = (
+              <FontAwesome name="plus-square" size={size} color={color} />
+            )
+          } else if (route.name === 'Add Deck') {
+            icon = (
+              <Ionicons name="plus-square" size={size} color={color} />
+            )
+          }
+          return icon
+        },
+      })}
+    >
+      <Tab.Screen name="Decks" component={Decks} />
+      <Tab.Screen name="Add Deck" component={AddDeck} />
+    </Tab.Navigator>
+  )
+}
 
 function App () {
   const dispatch = useDispatch()
@@ -32,40 +52,16 @@ function App () {
 
   return (
     <React.Fragment>
-      <MyStatusBar backgroundColor={'black'} style="light" />
+      <CustomStatusbar backgroundColor={'black'} style="light" />
+
       <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ color, size }) => {
-              let icon
-              if (route.name === 'Decks') {
-                icon = (
-                  <FontAwesome name="plus-square" size={size} color={color} />
-                )
-              } else if (route.name === 'Add Deck') {
-                icon = (
-                  <Ionicons name="plus-square" size={size} color={color} />
-                )
-              }
-              return icon
-            },
-          })}
-        >
-          <Tab.Screen name="Decks" component={Decks} />
-          <Tab.Screen name="Add Deck" component={AddDeck} />
-        </Tab.Navigator>
+        <Stack.Navigator headerMode="screen">
+          <Stack.Screen name="Home" component={TabNavigator} options={{ title: 'Mobile Flashcards' }} />
+          <Stack.Screen name="Deck" component={DeckView} />
+        </Stack.Navigator>
       </NavigationContainer>
     </React.Fragment>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default App

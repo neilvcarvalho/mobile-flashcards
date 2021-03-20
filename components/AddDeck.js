@@ -1,12 +1,14 @@
+import { useNavigation } from '@react-navigation/core'
 import React, { useState } from 'react'
 import { KeyboardAvoidingView } from 'react-native'
 import { Button, TextInput, Title } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
 import { handleAddDeck } from '../actions'
 
-function AddDeck ({ navigation }) {
+function AddDeck () {
   const [title, setTitle] = useState('')
   const dispatch = useDispatch()
+  const navigation = useNavigation()
 
   const submit = () => {
     dispatch(handleAddDeck(title))
