@@ -1,10 +1,9 @@
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { connect } from 'react-redux'
 
-function Decks (props) {
-  const { decks } = props
-
+function Decks ({ decks }) {
   return (
     <View style={styles.container}>
       {Object.keys(decks).map((deckId) => {
@@ -42,4 +41,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Decks
+function mapStateToProps (decks) {
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(Decks)

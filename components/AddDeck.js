@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 import { KeyboardAvoidingView } from 'react-native'
 import { Button, TextInput, Title } from 'react-native-paper'
+import { useDispatch } from 'react-redux'
+import { addDeck } from '../actions'
 
 function AddDeck ({ navigation }) {
   const [title, setTitle] = useState('')
+  const dispatch = useDispatch()
 
-  const addDeck = () => {
+  const submit = () => {
+    dispatch(addDeck(title))
     setTitle('')
-    // Save to database
     navigation.navigate('Decks')
   }
 
@@ -17,7 +20,7 @@ function AddDeck ({ navigation }) {
 
       <TextInput label="Title" onChangeText={(title) => { setTitle(title) }} value={title} />
 
-      <Button icon="plus" mode="contained" onPress={() => addDeck() }>Add deck</Button>
+      <Button icon="plus" mode="contained" onPress={() => submit() }>Add deck</Button>
     </KeyboardAvoidingView>
   )
 }
