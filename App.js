@@ -10,6 +10,7 @@ import Decks from './components/Decks'
 import { useDispatch } from 'react-redux'
 import { handleInitialData } from './actions'
 import DeckView from './components/DeckView'
+import AddCard from './components/AddCard'
 
 const Tab =
   Platform.OS === 'ios'
@@ -58,6 +59,7 @@ function App () {
         <Stack.Navigator headerMode="screen">
           <Stack.Screen name="Home" component={TabNavigator} options={{ title: 'Mobile Flashcards' }} />
           <Stack.Screen name="Deck" component={DeckView} options={({ route }) => ({ title: route.params.title })} />
+          <Stack.Screen name="Add Card" component={AddCard} />
         </Stack.Navigator>
       </NavigationContainer>
     </React.Fragment>

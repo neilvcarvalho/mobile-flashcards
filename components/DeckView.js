@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
 import { connect } from 'react-redux'
 
-function DeckView ({ deck }) {
+function DeckView ({ deck, navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.deckGroup}>
@@ -14,18 +14,19 @@ function DeckView ({ deck }) {
       </View>
 
       <View style={styles.buttonGroup}>
-        <Button>Add Card</Button>
+        <Button onPress={() => { navigation.navigate('Add Card', { deck: deck }) }}>Add Card</Button>
         <Button disabled={deck.questions.length === 0} mode='contained'>Start Quiz</Button>
       </View>
     </View>
   )
 }
 
-function mapStateToProps(decks, { route }) {
+function mapStateToProps(decks, { navigation, route }) {
   const deck = decks[route.params.title]
 
   return {
-    deck
+    deck,
+    navigation
   }
 }
 
