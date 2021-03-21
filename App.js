@@ -57,7 +57,7 @@ function App () {
       <NavigationContainer>
         <Stack.Navigator headerMode="screen">
           <Stack.Screen name="Home" component={TabNavigator} options={{ title: 'Mobile Flashcards' }} />
-          <Stack.Screen name="Deck" component={DeckView} />
+          <Stack.Screen name="Deck" component={DeckView} options={({ route }) => ({ title: route.params.title })} />
         </Stack.Navigator>
       </NavigationContainer>
     </React.Fragment>
