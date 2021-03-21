@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux'
 import { handleInitialData } from './actions'
 import DeckView from './components/DeckView'
 import AddCard from './components/AddCard'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Tab =
   Platform.OS === 'ios'
@@ -46,6 +47,7 @@ const TabNavigator = function () {
 
 function App () {
   const dispatch = useDispatch()
+  // AsyncStorage.clear()
 
   useEffect(() => {
     dispatch(handleInitialData())

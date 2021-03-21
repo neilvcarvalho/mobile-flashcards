@@ -33,7 +33,8 @@ function mapStateToProps(decks, { navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    margin: '5%',
   },
   deckTitle: {
     fontSize: 30
@@ -45,11 +46,9 @@ const styles = StyleSheet.create({
     flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
-    margin: '5%'
   },
   buttonGroup: {
     flex: 1,
-    margin: '5%',
     justifyContent: 'space-evenly'
   }
 })
