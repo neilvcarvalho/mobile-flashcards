@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import CardFront from './CardFront'
+import CardBack from './CardBack'
+import QuizResults from './QuizResults'
 import { View, Text, StyleSheet } from 'react-native'
-import { Button } from 'react-native-paper'
 
-function Quiz ({ route }) {
+function Quiz ({ route, navigation }) {
   const { deck } = route.params
   const FRONT = 'front'
   const BACK = 'back'
@@ -40,6 +42,23 @@ function Quiz ({ route }) {
     setQuizState(FINISHED)
   }
 
+  const restartQuiz = () => {
+    setQuestion(1)
+    setCorrectAnswers(0)
+    setQuizState(RUNNING)
+    setSide(FRONT)
+  }
+
+  if (quizState === FINISHED) {
+    return (
+      <QuizResults
+        correctAnswers={correctAnswers}
+        quizLength={quizLength}
+        restartQuiz={restartQuiz}
+        navigation={navigation} />
+    )
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.card}>
@@ -47,7 +66,13 @@ function Quiz ({ route }) {
           <Text>{question}/{quizLength}</Text>
         </View>
 
-        <View style={styles.cardQuestion}>
+        {
+          side === FRONT
+          ? <CardFront currentQuestion={currentQuestion} flip={flip} />
+          : <CardBack currentQuestion={currentQuestion} flip={flip} answerCorrect={answerCorrect} nextQuestion={nextQuestion} />
+        }
+
+        {/* <View style={styles.cardQuestion}>
           {
             quizState === RUNNING
             ? <Text style={styles.questionText}>{side === FRONT ? currentQuestion.question : currentQuestion.answer}</Text>
@@ -60,7 +85,7 @@ function Quiz ({ route }) {
           <Button onPress={() => { flip() }}>{side === FRONT ? 'View answer' : 'View question'}</Button>
           <Button color='green' mode='contained' onPress={() => { answerCorrect() } }>Correct</Button>
           <Button color='red' mode='contained' onPress={() => { nextQuestion() }}>Incorrect</Button>
-        </View>
+        </View> */}
       </View>
 
     </View>
@@ -82,17 +107,6 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'lightgray',
     justifyContent: 'space-between'
-  },
-  cardQuestion: {
-    flex: 3,
-    alignItems: 'center'
-  },
-  questionText: {
-    fontSize: 18
-  },
-  buttonGroup: {
-    flex: 1,
-    justifyContent: 'space-between',
   }
 })
 
