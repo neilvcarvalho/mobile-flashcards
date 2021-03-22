@@ -14,8 +14,14 @@ function DeckView ({ deck, navigation }) {
       </View>
 
       <View style={styles.buttonGroup}>
-        <Button onPress={() => { navigation.navigate('Add Card', { deck: deck }) }}>Add Card</Button>
-        <Button disabled={deck.questions.length === 0} mode='contained'>Start Quiz</Button>
+        <Button
+          onPress={() => { navigation.navigate('Add Card', { deck: deck }) }}
+        >Add Card</Button>
+        <Button
+          onPress={() => { navigation.navigate('Quiz', { deck: deck }) }}
+          disabled={deck.questions.length === 0}
+          mode='contained'
+        >Start Quiz</Button>
       </View>
     </View>
   )

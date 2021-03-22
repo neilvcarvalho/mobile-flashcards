@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux'
 import { handleInitialData } from './actions'
 import DeckView from './components/DeckView'
 import AddCard from './components/AddCard'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import Quiz from './components/Quiz'
 
 const Tab =
   Platform.OS === 'ios'
@@ -62,6 +62,7 @@ function App () {
           <Stack.Screen name="Home" component={TabNavigator} options={{ title: 'Mobile Flashcards' }} />
           <Stack.Screen name="Deck" component={DeckView} options={({ route }) => ({ title: route.params.title })} />
           <Stack.Screen name="Add Card" component={AddCard} />
+          <Stack.Screen name="Quiz" component={Quiz} options={({ route }) => ({ title: `Quiz for ${route.params.deck.title}`})} />
         </Stack.Navigator>
       </NavigationContainer>
     </React.Fragment>
