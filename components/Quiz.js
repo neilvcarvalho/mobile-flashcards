@@ -71,21 +71,6 @@ function Quiz ({ route, navigation }) {
           ? <CardFront currentQuestion={currentQuestion} flip={flip} />
           : <CardBack currentQuestion={currentQuestion} flip={flip} answerCorrect={answerCorrect} nextQuestion={nextQuestion} />
         }
-
-        {/* <View style={styles.cardQuestion}>
-          {
-            quizState === RUNNING
-            ? <Text style={styles.questionText}>{side === FRONT ? currentQuestion.question : currentQuestion.answer}</Text>
-            : <Text style={styles.questionText}>You have answered correctly {correctAnswers} questions out of {quizLength}</Text>
-          }
-
-        </View>
-
-        <View style={styles.buttonGroup}>
-          <Button onPress={() => { flip() }}>{side === FRONT ? 'View answer' : 'View question'}</Button>
-          <Button color='green' mode='contained' onPress={() => { answerCorrect() } }>Correct</Button>
-          <Button color='red' mode='contained' onPress={() => { nextQuestion() }}>Incorrect</Button>
-        </View> */}
       </View>
 
     </View>
