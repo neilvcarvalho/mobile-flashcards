@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 import CardFront from './CardFront'
 import CardBack from './CardBack'
 import QuizResults from './QuizResults'
-import { View, Text, StyleSheet } from 'react-native'
 
 function Quiz ({ route, navigation }) {
   const { deck } = route.params

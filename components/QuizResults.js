@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/core'
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'

@@ -1,14 +1,13 @@
-import { useNavigation } from '@react-navigation/core'
 import React, { useState } from 'react'
-import { KeyboardAvoidingView } from 'react-native'
-import { Button, TextInput, Title } from 'react-native-paper'
+import { KeyboardAvoidingView, StyleSheet, View } from 'react-native'
+import { Button, TextInput } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
 import { handleAddDeck } from '../actions'
 
-function AddDeck () {
+function AddDeck ({ navigation }) {
   const [title, setTitle] = useState('')
   const dispatch = useDispatch()
-  const navigation = useNavigation()
+
 
   const submit = () => {
     dispatch(handleAddDeck(title))
@@ -17,14 +16,28 @@ function AddDeck () {
   }
 
   return (
-    <KeyboardAvoidingView>
-      <Title>What's the title of your new deck?</Title>
+    <KeyboardAvoidingView style={styles.container}>
+      <View style={styles.form}>
+        <TextInput label="What's the title of the your new deck?" onChangeText={(title) => { setTitle(title) }} value={title} />
+      </View>
 
-      <TextInput label="Title" onChangeText={(title) => { setTitle(title) }} value={title} />
-
-      <Button icon="plus" mode="contained" onPress={() => submit() }>Add deck</Button>
+      <View style={styles.buttonGroup}>
+        <Button icon="plus" mode="contained" onPress={submit}>Add deck</Button>
+      </View>
     </KeyboardAvoidingView>
   )
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    margin: '5%'
+  },
+  form: {
+    flex: 3
+  },
+  buttonGroup: {
+    flex: 1
+  }
+})
 
 export default AddDeck
