@@ -22,7 +22,7 @@ function AddDeck ({ navigation }) {
       </View>
 
       <View style={styles.buttonGroup}>
-        <Button icon="plus" mode="contained" onPress={submit}>Add deck</Button>
+        <Button icon="plus" mode="contained" onPress={submit} disabled={title === ''}>Add deck</Button>
       </View>
     </KeyboardAvoidingView>
   )
