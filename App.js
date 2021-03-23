@@ -3,7 +3,6 @@ import { Platform } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
-import { handleInitialData } from './actions'
 import { NavigationContainer } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
 import AddCard from './components/AddCard'
@@ -12,6 +11,9 @@ import CustomStatusbar from './components/CustomStatusbar'
 import Decks from './components/Decks'
 import DeckView from './components/DeckView'
 import Quiz from './components/Quiz'
+import { handleInitialData } from './actions'
+import { setLocalNotification } from './utils/helpers'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Tab =
   Platform.OS === 'ios'
@@ -51,6 +53,7 @@ function App () {
 
   useEffect(() => {
     dispatch(handleInitialData())
+    setLocalNotification()
   }, [])
 
   return (

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import CardFront from './CardFront'
 import CardBack from './CardBack'
 import QuizResults from './QuizResults'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 function Quiz ({ route, navigation }) {
   const { deck } = route.params
@@ -40,6 +41,7 @@ function Quiz ({ route, navigation }) {
 
   const finishQuiz = () => {
     setQuizState(FINISHED)
+    clearLocalNotification().then(setLocalNotification)
   }
 
   const restartQuiz = () => {
