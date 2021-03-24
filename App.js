@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { Platform } from 'react-native'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -30,11 +32,11 @@ const TabNavigator = function () {
           let icon
           if (route.name === 'Decks') {
             icon = (
-              <FontAwesome name="plus-square" size={size} color={color} />
+              <Ionicons name="albums" size={size} color={color} />
             )
           } else if (route.name === 'Add Deck') {
             icon = (
-              <Ionicons name="plus-square" size={size} color={color} />
+              <FontAwesome name="plus-square" size={size} color={color} />
             )
           }
           return icon
