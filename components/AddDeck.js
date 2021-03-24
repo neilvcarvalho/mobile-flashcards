@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, View } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, View, Text } from 'react-native'
 import { Button, TextInput } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
 import { handleAddDeck } from '../actions'
+import RequiredField from './RequiredField'
 
 function AddDeck ({ navigation }) {
   const [title, setTitle] = useState('')
@@ -19,6 +20,7 @@ function AddDeck ({ navigation }) {
     <KeyboardAvoidingView style={styles.container}>
       <View style={styles.form}>
         <TextInput label="What's the title of the your new deck?" onChangeText={(title) => { setTitle(title) }} value={title} />
+        <RequiredField value={title} label="Title" />
       </View>
 
       <View style={styles.buttonGroup}>

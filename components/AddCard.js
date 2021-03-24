@@ -3,6 +3,7 @@ import { View, Text, KeyboardAvoidingView, StyleSheet } from 'react-native'
 import { Button, TextInput } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
 import { handleAddCard } from '../actions'
+import RequiredField from './RequiredField'
 
 function AddCard ({ route, navigation }) {
   const { deck } = route.params
@@ -20,7 +21,9 @@ function AddCard ({ route, navigation }) {
       <View style={styles.cardGroup}>
         <Text>Add card to {deck.title}</Text>
         <TextInput label="Question" value={question} onChangeText={(question) => { setQuestion(question) }} />
+        <RequiredField value={question} label="Question" />
         <TextInput label="Answer" value={answer} onChangeText={(answer) => { setAnswer(answer) }} />
+        <RequiredField value={answer} label="Answer" />
       </View>
 
       <View style={styles.buttonGroup}>
