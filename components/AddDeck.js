@@ -12,7 +12,7 @@ function AddDeck ({ navigation }) {
   const submit = () => {
     dispatch(handleAddDeck(title))
     setTitle('')
-    navigation.navigate('Decks')
+    navigation.navigate('Deck', { title: title })
   }
 
   return (

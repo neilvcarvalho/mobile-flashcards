@@ -2,8 +2,15 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
 import { connect } from 'react-redux'
+import LoadingView from './LoadingView'
 
 function DeckView ({ deck, navigation }) {
+  if (deck === undefined) {
+    return (
+      <LoadingView />
+    )
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.deckGroup}>
@@ -25,15 +32,6 @@ function DeckView ({ deck, navigation }) {
       </View>
     </View>
   )
-}
-
-function mapStateToProps(decks, { navigation, route }) {
-  const deck = decks[route.params.title]
-
-  return {
-    deck,
-    navigation
-  }
 }
 
 const styles = StyleSheet.create({
@@ -58,5 +56,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly'
   }
 })
+
+function mapStateToProps(decks, { navigation, route }) {
+  const deck = decks[route.params.title]
+
+  return {
+    deck,
+    navigation
+  }
+}
 
 export default connect(mapStateToProps)(DeckView)
